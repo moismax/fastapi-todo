@@ -1,13 +1,13 @@
 from fastapi import FastAPI
-from .database import engine
-from . import models
-from .routers import todos
+from database import engine
+from models import Base
+from routers import todos_router
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-app.include_router(todos.router, prefix="/api")
+app.include_router(todos_router, prefix="/api")
 
 
 @app.get("/")
